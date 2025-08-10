@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Cryptography;
 
 // the ourAnimals array will store the following: 
 string animalID = "";
@@ -29,7 +30,7 @@ for (int i = 0; i < maxPets; i++)
         case 0:
             animalSpecies = "dog";
             animalID = "d1";
-            animalAge = "2";
+            animalAge = "3";
             animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
             animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
             animalNickname = "lola";
@@ -56,7 +57,7 @@ for (int i = 0; i < maxPets; i++)
         case 3:
             animalSpecies = "cat";
             animalID = "c4";
-            animalAge = "4";
+            animalAge = " ";
             animalPhysicalDescription = "small black skinny male. Mauler a lot to play ";
             animalPersonalityDescription = "playful, loud";
             animalNickname = "Captain";
@@ -64,7 +65,7 @@ for (int i = 0; i < maxPets; i++)
         case 4:
             animalSpecies = "cat";
             animalID = "c5";
-            animalAge = "7";
+            animalAge = "";
             animalPhysicalDescription = "A grumpy orange mischievous obese cat";
             animalPersonalityDescription = "aspero, solitario";
             animalNickname = "Bucky";
@@ -92,7 +93,7 @@ for (int i = 0; i < maxPets; i++)
 // display the top-level menu options
 do
 {
-    Console.Clear();
+    //Console.Clear();
 
     Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
     Console.WriteLine(" 1. List all of our current pet information");
@@ -294,6 +295,7 @@ do
 
         case "3":
             // Ensure animal ages and physical descriptions are complete
+
             // string animalID = "";
             // string animalSpecies = "";
             // string animalAge = "";
@@ -303,8 +305,8 @@ do
 
             // string animalID = "";
             // string animalSpecies = "";
-                // string animalAge = "";
-                // string animalPhysicalDescription = "";
+            //   3   string animalAge = "";
+            //   4   string animalPhysicalDescription = "";
             // string animalPersonalityDescription = "";
             // string animalNickname = "";
 
@@ -316,16 +318,25 @@ do
             // int petCount = 0;
             // string anotherPet = "y";
             // bool validEntry = false;
-            //             int petAge = 0;
-
-
+            // int petAge = 0;
+            bool flag = true;
             for (int k = 0; k < maxPets; k++)
             {
-                if ()
+                if (ourAnimals[k, 2].Substring(5).Length < 1)
+                {
+                    Console.WriteLine($@"The Age of the pet {k+1} with {ourAnimals[k, 0]} is not correct");
+                    flag = false;
+                    Console.WriteLine("Press the Enter key to continue.");
+                    readResult = Console.ReadLine();
+                }
             }
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
-            Console.WriteLine("Press the Enter key to continue.");
-            readResult = Console.ReadLine();
+            if (flag)
+            {
+                Console.WriteLine($@"All the ages are correct");
+                Console.WriteLine("Press the Enter key to continue.");
+                readResult = Console.ReadLine();
+            }
+
             break;
 
         case "4":
