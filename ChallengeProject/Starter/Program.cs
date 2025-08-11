@@ -42,7 +42,7 @@ for (int i = 0; i < maxPets; i++)
             animalAge = "9";
             animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
             animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
-            animalNickname = "loki";
+            animalNickname = "MiColega";
             break;
 
         case 2:
@@ -57,7 +57,7 @@ for (int i = 0; i < maxPets; i++)
         case 3:
             animalSpecies = "cat";
             animalID = "c4";
-            animalAge = " ";
+            animalAge = "9";
             animalPhysicalDescription = "small black skinny male. Mauler a lot to play ";
             animalPersonalityDescription = "playful, loud";
             animalNickname = "Captain";
@@ -65,7 +65,7 @@ for (int i = 0; i < maxPets; i++)
         case 4:
             animalSpecies = "cat";
             animalID = "c5";
-            animalAge = "";
+            animalAge = "2";
             animalPhysicalDescription = "A grumpy orange mischievous obese cat";
             animalPersonalityDescription = "aspero, solitario";
             animalNickname = "Bucky";
@@ -296,6 +296,58 @@ do
         case "3":
             // Ensure animal ages and physical descriptions are complete
 
+            bool ageFlag = true;
+            for (int k = 0; k < maxPets; k++)
+            {
+                string idField = ourAnimals[k, 0];
+                if (idField.Length <= 6)
+                {
+                    continue;
+                }
+                string ageField = ourAnimals[k, 2];
+                if (string.IsNullOrWhiteSpace(ageField.Substring(5)))
+                {
+                    Console.WriteLine($@"The Age of the pet with {ourAnimals[k, 0]}, is not correct");
+                    ageFlag = false;
+                    Console.WriteLine("Press the Enter key to continue.");
+                    readResult = Console.ReadLine();
+                }
+            }
+            if (ageFlag)
+            {
+                Console.WriteLine($@"All the ages are correct");
+                Console.WriteLine("Press the Enter key to continue.");
+                readResult = Console.ReadLine();
+            }
+
+            bool descriptionFlag = true;
+            for (int l = 0; l < maxPets; l++)
+            {
+                string idField = ourAnimals[l, 0];
+                if (idField.Length <= 6)
+                {
+                    continue;
+                }
+                string descriptionField = ourAnimals[l, 4];
+                if (string.IsNullOrWhiteSpace(descriptionField.Substring(22)))
+                {
+                    Console.WriteLine($@"The description of the pet with {ourAnimals[l, 0]}, is incomplete");
+                    descriptionFlag = false;
+                    Console.WriteLine("Press the Enter key to continue.");
+                    readResult = Console.ReadLine();
+                }
+            }
+            if (descriptionFlag)
+            {
+                Console.WriteLine($@"All the descriptions are correct");
+                Console.WriteLine("Press the Enter key to continue.");
+                readResult = Console.ReadLine();
+            }
+
+            break;
+
+        case "4":
+
             // string animalID = "";
             // string animalSpecies = "";
             // string animalAge = "";
@@ -305,45 +357,63 @@ do
 
             // string animalID = "";
             // string animalSpecies = "";
-            //   3   string animalAge = "";
-            //   4   string animalPhysicalDescription = "";
-            // string animalPersonalityDescription = "";
-            // string animalNickname = "";
+            // string animalAge = "";
+            // string animalPhysicalDescription = "";
+            //      string animalPersonalityDescription = "";
+            //      string animalNickname = "";
+            // Ensure animal nicknames and personality descriptions are complete
 
-            // variables that support data entry
-
-            // int maxPets = 8;
-            // string? readResult;
-            // string menuSelection = "";
-            // int petCount = 0;
-            // string anotherPet = "y";
-            // bool validEntry = false;
-            // int petAge = 0;
-            bool flag = true;
-            for (int k = 0; k < maxPets; k++)
+            bool nickFlag = true;
+            for (int i = 0; i < maxPets; i++)
             {
-                if (ourAnimals[k, 2].Substring(5).Length < 1)
+                string idField = ourAnimals[i, 0];
+                if (idField.Length <= 6)
                 {
-                    Console.WriteLine($@"The Age of the pet {k+1} with {ourAnimals[k, 0]} is not correct");
-                    flag = false;
+                    continue;
+                }
+                string nickField = ourAnimals[i, 3];
+                if (string.IsNullOrWhiteSpace(nickField.Substring(10)))
+                {
+                    Console.WriteLine($@"The nickname of the pet with {ourAnimals[i, 0]}, is incomplete");
+                    nickFlag = false;
                     Console.WriteLine("Press the Enter key to continue.");
                     readResult = Console.ReadLine();
                 }
             }
-            if (flag)
+            if (nickFlag)
             {
-                Console.WriteLine($@"All the ages are correct");
+                Console.WriteLine($@"All the nicknames are correct");
                 Console.WriteLine("Press the Enter key to continue.");
                 readResult = Console.ReadLine();
             }
 
-            break;
 
-        case "4":
-            // Ensure animal nicknames and personality descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
-            Console.WriteLine("Press the Enter key to continue.");
-            readResult = Console.ReadLine();
+
+            bool personalityFlag = true;
+            for (int m = 0; m < maxPets; m++)
+            {
+                string idField = ourAnimals[m, 0];
+                if (idField.Length <= 6)
+                {
+                    continue;
+                }
+                string personalityField = ourAnimals[m, 5];
+                if (string.IsNullOrWhiteSpace(personalityField.Substring(13)))
+                {
+                    Console.WriteLine($@"The personality of the pet with {ourAnimals[m, 0]}, is incomplete");
+                    personalityFlag = false;
+                    Console.WriteLine("Press the Enter key to continue.");
+                    readResult = Console.ReadLine();
+                }
+
+            }
+            if (personalityFlag)
+            {
+                Console.WriteLine($@"All the personalities are correct");
+                Console.WriteLine("Press the Enter key to continue.");
+                readResult = Console.ReadLine();
+            }
+
             break;
 
         case "5":
