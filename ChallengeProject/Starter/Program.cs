@@ -18,6 +18,7 @@ int petCount = 0;
 string anotherPet = "y";
 bool validEntry = false;
 int petAge = 0;
+bool? readAge;
 
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
@@ -309,8 +310,14 @@ do
                 {
                     Console.WriteLine($@"The Age of the pet with {ourAnimals[k, 0]}, is not correct");
                     ageFlag = false;
-                    Console.WriteLine("Press the Enter key to continue.");
+                    Console.WriteLine("Inser a valid age for the pet");
                     readResult = Console.ReadLine();
+                    if (readResult != null)
+                        readAge = int.TryParse(readResult, out int result);
+                    if (readAge != false)
+                    { 
+                        Console.WriteLine("Inser a valid age for the pet");
+                    }
                 }
             }
             if (ageFlag)
