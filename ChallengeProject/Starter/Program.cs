@@ -58,8 +58,8 @@ for (int i = 0; i < maxPets; i++)
         case 3:
             animalSpecies = "cat";
             animalID = "c4";
-            animalAge = "9";
-            animalPhysicalDescription = "small black skinny male. Mauler a lot to play ";
+            animalAge = "";
+            animalPhysicalDescription = "";
             animalPersonalityDescription = "playful, loud";
             animalNickname = "Captain";
             break;
@@ -297,7 +297,7 @@ do
         case "3":
             // Ensure animal ages and physical descriptions are complete
 
-            bool ageFlag = true;
+            bool flag = true;
             for (int k = 0; k < maxPets; k++)
             {
                 string idField = ourAnimals[k, 0];
@@ -309,44 +309,59 @@ do
                 if (string.IsNullOrWhiteSpace(ageField.Substring(5)))
                 {
                     Console.WriteLine($@"The Age of the pet with {ourAnimals[k, 0]}, is not correct");
-                    ageFlag = false;
-                    Console.WriteLine("Inser a valid age for the pet");
-                    readResult = Console.ReadLine();
-                    if (readResult != null)
-                        readAge = int.TryParse(readResult, out int result);
-                    if (readAge != false)
-                    { 
+                    flag = false;
+
+                    do
+                    {
                         Console.WriteLine("Inser a valid age for the pet");
-                    }
+                        readResult = Console.ReadLine();
+
+                        if (readResult != null)
+                        {
+                            readAge = int.TryParse(readResult, out int result);
+                            do
+                            {
+                                Console.WriteLine("Inser a valid age for the pet");
+                                readResult = Console.ReadLine();
+                                if (result > 1 && result < 25)
+                                {
+                                    animalID = Convert.ToString(result);
+                                }
+                                else
+                                {
+                                    readAge = false;
+                                }
+                            } while (readAge == false);
+                        }
+                    } while (readResult == null);
+
+                        string descriptionField = ourAnimals[k, 4];
+                        if (string.IsNullOrWhiteSpace(descriptionField.Substring(22)))
+                        {
+                            Console.WriteLine($@"The description of the pet with {ourAnimals[k, 0]}, is incomplete");
+                            flag = false;
+                            Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
+
+                            readResult = Console.ReadLine();
+                            do
+                            {
+                                Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
+                                flag = false;
+                                readResult = Console.ReadLine();
+                            } while (readResult == null);
+
+                            ourAnimals[k, 4] = readResult;
+                            flag = true;
+                        }
+                    
+
                 }
-            }
-            if (ageFlag)
-            {
-                Console.WriteLine($@"All the ages are correct");
-                Console.WriteLine("Press the Enter key to continue.");
-                readResult = Console.ReadLine();
+
             }
 
-            bool descriptionFlag = true;
-            for (int l = 0; l < maxPets; l++)
+            if (flag)
             {
-                string idField = ourAnimals[l, 0];
-                if (idField.Length <= 6)
-                {
-                    continue;
-                }
-                string descriptionField = ourAnimals[l, 4];
-                if (string.IsNullOrWhiteSpace(descriptionField.Substring(22)))
-                {
-                    Console.WriteLine($@"The description of the pet with {ourAnimals[l, 0]}, is incomplete");
-                    descriptionFlag = false;
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
-                }
-            }
-            if (descriptionFlag)
-            {
-                Console.WriteLine($@"All the descriptions are correct");
+                Console.WriteLine($@"All the ages and descriptions are complete");
                 Console.WriteLine("Press the Enter key to continue.");
                 readResult = Console.ReadLine();
             }
