@@ -18,7 +18,6 @@ int petCount = 0;
 string anotherPet = "y";
 bool validEntry = false;
 int petAge = 0;
-bool? readAge;
 
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
@@ -306,54 +305,49 @@ do
                     continue;
                 }
                 string ageField = ourAnimals[k, 2];
-                if (string.IsNullOrWhiteSpace(ageField.Substring(5)))
+                if (ageField.Length <= 5 || string.IsNullOrWhiteSpace(ageField.Substring(5)) || !int.TryParse(ageField.Substring(5), out int age) || age < 0 || age > 25)
                 {
                     Console.WriteLine($@"The Age of the pet with {ourAnimals[k, 0]}, is not correct");
                     flag = false;
-
+                    bool validAge = false;
+                    int result = 0;
                     do
                     {
-                        Console.WriteLine("Inser a valid age for the pet");
+                        Console.WriteLine("Insert a valid age for the pet");
                         readResult = Console.ReadLine();
 
-                        if (readResult != null)
+                        if (int.TryParse(readResult, out result) && result > 1 && result < 25)
                         {
-                            readAge = int.TryParse(readResult, out int result);
-                            do
-                            {
-                                Console.WriteLine("Inser a valid age for the pet");
-                                readResult = Console.ReadLine();
-                                if (result > 1 && result < 25)
-                                {
-                                    animalID = Convert.ToString(result);
-                                }
-                                else
-                                {
-                                    readAge = false;
-                                }
-                            } while (readAge == false);
+                            animalID = Convert.ToString(result);
+                            ourAnimals[k, 2] = "Age: " + animalID;
+                            validAge = true;
                         }
-                    } while (readResult == null);
-
-                        string descriptionField = ourAnimals[k, 4];
-                        if (string.IsNullOrWhiteSpace(descriptionField.Substring(22)))
+                        else
                         {
-                            Console.WriteLine($@"The description of the pet with {ourAnimals[k, 0]}, is incomplete");
-                            flag = false;
-                            Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
-
+                            Console.WriteLine("Inser a valid age for the pet");
                             readResult = Console.ReadLine();
-                            do
-                            {
-                                Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
-                                flag = false;
-                                readResult = Console.ReadLine();
-                            } while (readResult == null);
-
-                            ourAnimals[k, 4] = readResult;
-                            flag = true;
                         }
-                    
+                    } while (validAge == false);
+
+                    string descriptionField = ourAnimals[k, 4];
+                    if (string.IsNullOrWhiteSpace(descriptionField.Substring(22)))
+                    {
+                        Console.WriteLine($@"The description of the pet with {ourAnimals[k, 0]}, is incomplete");
+                        flag = false;
+                        Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
+
+                        readResult = Console.ReadLine();
+                        do
+                        {
+                            Console.WriteLine($"Enter a physical description for {ourAnimals[k, 0]} (size, color, breed, gender, weight, housebroken)");
+                            flag = false;
+                            readResult = Console.ReadLine();
+                        } while (readResult == null);
+
+                        ourAnimals[k, 4] = readResult;
+                        flag = true;
+                    }
+
 
                 }
 
