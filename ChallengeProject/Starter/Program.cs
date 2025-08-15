@@ -59,8 +59,8 @@ for (int i = 0; i < maxPets; i++)
             animalID = "c4";
             animalAge = "";
             animalPhysicalDescription = "";
-            animalPersonalityDescription = "playful, loud";
-            animalNickname = "Captain";
+            animalPersonalityDescription = "";
+            animalNickname = "";
             break;
         case 4:
             animalSpecies = "cat";
@@ -393,17 +393,25 @@ do
                 string nickField = ourAnimals[i, 3];
                 if (string.IsNullOrWhiteSpace(nickField.Substring(10)))
                 {
-                    Console.WriteLine($@"The nickname of the pet with {ourAnimals[i, 0]}, is incomplete");
                     nickFlag = false;
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
+                    do
+                    {
+                        Console.WriteLine($@"The nickname of the pet with {ourAnimals[i, 0]}, is incomplete");
+                        Console.WriteLine($@"Introduce a nickname for {ourAnimals[i, 0]}.");
+                        readResult = Console.ReadLine();
+                        nickFlag = false;
+                        if (!string.IsNullOrWhiteSpace(readResult))
+                        {
+                            ourAnimals[i, 3] += readResult;
+                            nickFlag = true;
+                        }
+                    } while (nickFlag == false);
+
                 }
             }
             if (nickFlag)
             {
                 Console.WriteLine($@"All the nicknames are correct");
-                Console.WriteLine("Press the Enter key to continue.");
-                readResult = Console.ReadLine();
             }
 
 
@@ -416,21 +424,28 @@ do
                 {
                     continue;
                 }
+
                 string personalityField = ourAnimals[m, 5];
                 if (string.IsNullOrWhiteSpace(personalityField.Substring(13)))
                 {
-                    Console.WriteLine($@"The personality of the pet with {ourAnimals[m, 0]}, is incomplete");
-                    personalityFlag = false;
-                    Console.WriteLine("Press the Enter key to continue.");
-                    readResult = Console.ReadLine();
+                    do
+                    {
+                        personalityFlag = false;
+                        Console.WriteLine($@"The personality of the pet with {ourAnimals[m, 0]}, is incomplete");
+                        Console.WriteLine($"Enter a personality description for {ourAnimals[m, 0]} (likes or dislikes, tricks, energy level)");
+                        readResult = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(readResult))
+                        {
+                            ourAnimals[m, 5] += readResult;
+                            personalityFlag = true;
+                        }
+                    } while (personalityFlag == false);
                 }
 
             }
             if (personalityFlag)
             {
                 Console.WriteLine($@"All the personalities are correct");
-                Console.WriteLine("Press the Enter key to continue.");
-                readResult = Console.ReadLine();
             }
 
             break;
